@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "pubmed-fetcher"
+version = "0.1.0"
+description = "Fetch and Analyze PubMed papers with pharma/biotech filtering"
+authors = ["Nikita <nikitakamnani01@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+#  This tells Poetry to treat pubmed_fetcher/ as a package
+packages = [
+    { include = "pubmed_fetcher" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = ">=2.32.3,<3.0.0"
+pandas = ">=2.2.3,<3.0.0"
+tqdm = ">=4.67.1,<5.0.0"
+beautifulsoup4 = ">=4.13.3,<5.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+black = "^25.1.0"
+flake8 = "^7.2.0"
+
+#  This connects the CLI script to your main() function in app.py
+[tool.poetry.scripts]
+get-papers-list = "pubmed_fetcher.cli:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

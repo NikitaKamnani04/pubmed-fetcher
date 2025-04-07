@@ -66,7 +66,7 @@ def fetch_pubmed_articles(pubmed_ids: List[str], debug: bool = False) -> List[Di
 
         non_academic_authors = []
         company_affiliations: Set[str] = set()
-        corresponding_author_emails: Set[str] = set()
+        first_corresponding_email = None
 
         for author in article.findall(".//Author"):
             last_name = author.find("LastName")
@@ -86,7 +86,10 @@ def fetch_pubmed_articles(pubmed_ids: List[str], debug: bool = False) -> List[Di
                 if is_pharma_company(aff_text):
                     company_affiliations.add(aff_text)
 
-                corresponding_author_emails.update(extract_emails(aff_text))
+                if not first_corresponding_email:
+                    emails = extract_emails(aff_text)
+                    if emails:
+                        first_corresponding_email = emails[0]
 
         if company_affiliations:
             articles.append({
@@ -95,7 +98,7 @@ def fetch_pubmed_articles(pubmed_ids: List[str], debug: bool = False) -> List[Di
                 "Publication Date": publication_date,
                 "Non Academic Author(s)": "; ".join(non_academic_authors) if non_academic_authors else "None",
                 "Company Affiliations": "; ".join(company_affiliations),
-                "Corresponding Author Email": "; ".join(corresponding_author_emails) if corresponding_author_emails else "N/A"
+                "Corresponding Author Email": first_corresponding_email if first_corresponding_email else "N/A"
             })
 
     if debug:

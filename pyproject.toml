@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pubmed-fetcher"
+name = "pubmed-fetcher-nikita"
 version = "0.1.0"
 description = "Fetch and Analyze PubMed papers with pharma/biotech filtering"
 authors = ["Nikita <nikitakamnani01@gmail.com>"]
@@ -17,6 +17,7 @@ requests = ">=2.32.3,<3.0.0"
 pandas = ">=2.2.3,<3.0.0"
 tqdm = ">=4.67.1,<5.0.0"
 beautifulsoup4 = ">=4.13.3,<5.0.0"
+click = "^8.1.8"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
